@@ -1,1 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Diamantes 💎</title>
 
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+      radial-gradient(circle at 50% 0%,#241044 0%,#080611 42%,#030308 100%);
+    color:white;
+    min-height:100vh;
+}
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(circle,#6d24ff 1px,transparent 2px);
+    background-size:70px 70px;
+    opacity:.12;
+}
+
+/* CONTENEDOR */
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:15px;
+}
+
+/* GENERADOR */
+
+.generator{
+    position:relative;
+    overflow:hidden;
+    border:1px solid #a238ff;
+    border-radius:18px;
+    background:
+      linear-gradient(145deg,rgba(20,8,38,.98),rgba(3,4,13,.98));
+    box-shadow:
+      0 0 25px rgba(153,40,255,.35),
+      inset 0 0 30px rgba(95,20,160,.15);
+    padding:25px 18px 30px;
+}
+
+.generator:before,
+.generator:after{
+    content:"💎";
+    position:absolute;
+    font-size:55px;
+    opacity:.8;
+    animation:float 3s ease-in-out infinite;
+}
+
+.generator:before{
+    left:15px;
+    top:70px;
+}
+
+.generator:after{
+    right:15px;
+    top:120px;
+    animation-delay:1s;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0) rotate(-5deg)}
+    50%{transform:translateY(-12px) rotate(5deg)}
+}
+
+.title{
+    text-align:center;
+    position:relative;
+    z-index:2;
+}
+
+.title h1{
+    font-size:clamp(35px,8vw,75px);
+    line-height:.95;
+    font-weight:900;
+    text-transform:uppercase;
+    text-shadow:0 0 15px #8d25ff;
+}
+
+.title h1 span{
+    color:#12dfff;
+    display:block;
+    text-shadow:
+      0 0 10px #00cfff,
+      0 0 25px #008cff;
+}
+
+.subtitle{
+    margin-top:25px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.subtitle span{
+    color:#ffd900;
+}
+
+/* COFRES */
+
+.chests{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    margin:20px 0;
+    font-size:65px;
+    filter:drop-shadow(0 0 12px #00aaff);
+}
+
+/* FORMULARIO */
+
+.form{
+    max-width:500px;
+    margin:auto;
+    position:relative;
+    z-index:5;
+}
+
+.input{
+    width:100%;
+    padding:17px;
+    border-radius:10px;
+    border:1px solid #755b9b;
+    background:#090912;
+    color:white;
+    font-size:17px;
+    outline:none;
+    text-align:center;
+}
+
+.input:focus{
+    border-color:#12dfff;
+    box-shadow:0 0 15px rgba(0,210,255,.4);
+}
+
+.generate{
+    width:100%;
+    margin-top:18px;
+    padding:17px;
+    border:0;
+    border-radius:9px;
+    background:linear-gradient(90deg,#ffc400,#ffe35a);
+    color:#080808;
+    font-size:19px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(255,203,0,.35);
+}
+
+.generate:active{
+    transform:scale(.98);
+}
+
+/* ESTADO */
+
+.status{
+    display:none;
+    max-width:550px;
+    margin:25px auto 0;
+    padding:22px;
+    text-align:center;
+    border-radius:12px;
+    border:1px solid #00d65a;
+    background:rgba(0,80,30,.25);
+}
+
+.status.loading{
+    border-color:#00cfff;
+    background:rgba(0,80,120,.2);
+}
+
+.status .number{
+    font-size:52px;
+    color:#ffd000;
+    font-weight:900;
+    margin:7px 0;
+}
+
+.status .diamond{
+    color:#12dfff;
+}
+
+/* INFORMACION */
+
+.section-title{
+    text-align:center;
+    margin:45px 0 10px;
+    font-size:31px;
+    text-transform:uppercase;
+    text-shadow:0 0 12px #9c2cff;
+}
+
+.section-subtitle{
+    text-align:center;
+    color:#c044ff;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.info-card{
+    border:1px solid #812cff;
+    border-radius:10px;
+    padding:17px 13px;
+    background:linear-gradient(145deg,#100a1b,#07070d);
+    box-shadow:0 0 10px rgba(126,35,255,.18);
+}
+
+.info-card h3{
+    color:#c84cff;
+    font-size:16px;
+    margin-bottom:12px;
+}
+
+.info-card p{
+    color:#ddd;
+    font-size:13px;
+    line-height:1.55;
+}
+
+.info-card ul{
+    padding-left:17px;
+}
+
+.info-card li{
+    color:#ddd;
+    font-size:13px;
+    margin:7px 0;
+}
+
+/* BOTON ENLACE */
+
+.link-area{
+    text-align:center;
+    padding:45px 0 30px;
+}
+
+.link-button{
+    display:inline-block;
+    padding:15px 28px;
+    border:1px solid #b82cff;
+    border-radius:9px;
+    color:white;
+    background:#09050f;
+    box-shadow:0 0 18px rgba(180,40,255,.5);
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.link-button:hover{
+    background:#1a0928;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+    .info-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:500px){
+    .container{
+        padding:8px;
+    }
+
+    .generator{
+        padding:20px 12px 25px;
+    }
+
+    .chests{
+        font-size:45px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .info-card{
+        padding:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<section class="generator">
+
+<div class="title">
+    <h1>
+        GENERADOR DE
+        <span>DIAMANTES</span>
+    </h1>
+</div>
+
+<p class="subtitle" style="text-align:center;">
+    INGRESA TU <span>ID DE FREE FIRE</span>
+</p>
+
+<div class="chests">
+    <span>💎</span>
+    <span>🧰</span>
+    <span>💎</span>
+</div>
+
+<div class="form">
+
+<input
+    id="playerID"
+    class="input"
+    type="text"
+    inputmode="numeric"
+    placeholder="Ejemplo: 1234567890"
+>
+
+<button class="generate" onclick="generateDiamonds()">
+    💎 GENERAR DIAMANTES
+</button>
+
+</div>
+
+<div id="status" class="status"></div>
+
+</section>
+
+
+<!-- INFORMACION -->
+
+<h2 class="section-title">⚡ DATOS DE FREE FIRE ⚡</h2>
+
+<p class="section-subtitle">
+    CONSEJOS Y DATOS PARA SER UN MEJOR JUGADOR
+</p>
+
+
+<div class="info-grid">
+
+<div class="info-card">
+<h3>🎯 MEJOR PRECISIÓN</h3>
+<ul>
+<li>Mantén la mira a la altura de la cabeza.</li>
+<li>Practica movimientos mientras apuntas.</li>
+<li>Evita disparar sin controlar el retroceso.</li>
+<li>Aprende a realizar pequeños ajustes de mira.</li>
+<li>Practica constantemente en entrenamiento.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>⚙️ SENSIBILIDAD</h3>
+<ul>
+<li>Prueba diferentes configuraciones.</li>
+<li>Busca una sensibilidad que puedas controlar.</li>
+<li>No copies automáticamente la configuración de otro jugador.</li>
+<li>Haz pequeños cambios y prueba nuevamente.</li>
+<li>Prioriza el control sobre la velocidad.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>🎯 MEJOR PUNTERÍA</h3>
+<ul>
+<li>Dispara en ráfagas cuando sea necesario.</li>
+<li>Aprende el comportamiento de cada arma.</li>
+<li>Controla el retroceso.</li>
+<li>Practica tiros a diferentes distancias.</li>
+<li>Entrena la reacción y el seguimiento.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>🛡️ DUELO DE ESCUADRAS</h3>
+<ul>
+<li>Mantén comunicación con tu equipo.</li>
+<li>No te separes innecesariamente.</li>
+<li>Controla las posiciones importantes.</li>
+<li>Aprende cuándo atacar y cuándo retroceder.</li>
+<li>Ayuda a tus compañeros cuando sea posible.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>👑 BATTLE ROYALE</h3>
+<ul>
+<li>Elige cuidadosamente dónde aterrizar.</li>
+<li>Busca armas y recursos rápidamente.</li>
+<li>Observa siempre la zona segura.</li>
+<li>Evita enfrentamientos innecesarios.</li>
+<li>Utiliza el mapa para planificar tus movimientos.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>🏃 MOVIMIENTO</h3>
+<ul>
+<li>No permanezcas quieto durante los enfrentamientos.</li>
+<li>Practica desplazamientos laterales.</li>
+<li>Aprende a usar las coberturas.</li>
+<li>Combina movimiento y puntería.</li>
+<li>Practica cambios rápidos de dirección.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>📱 CONFIGURACIÓN</h3>
+<ul>
+<li>Personaliza el HUD según tu comodidad.</li>
+<li>Utiliza botones fáciles de alcanzar.</li>
+<li>Ajusta los gráficos según el rendimiento del dispositivo.</li>
+<li>Evita configuraciones que produzcan demasiados retrasos.</li>
+<li>Prueba la configuración antes de una partida.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>🧠 ESTRATEGIAS</h3>
+<ul>
+<li>Aprende las zonas del mapa.</li>
+<li>Observa las rutas de tus enemigos.</li>
+<li>Escucha los sonidos del entorno.</li>
+<li>Piensa antes de entrar en un enfrentamiento.</li>
+<li>Ten siempre una ruta de escape.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>🏋️ ENTRENAMIENTO</h3>
+<ul>
+<li>Practica regularmente.</li>
+<li>Trabaja la precisión.</li>
+<li>Entrena tu velocidad de reacción.</li>
+<li>Practica diferentes distancias.</li>
+<li>Revisa tus errores después de jugar.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>🔫 ARMAS</h3>
+<ul>
+<li>Aprende las características de cada arma.</li>
+<li>Conoce su alcance efectivo.</li>
+<li>Practica el control del retroceso.</li>
+<li>Utiliza el arma adecuada según la distancia.</li>
+<li>No dependas de una sola arma.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>⚠️ ERRORES COMUNES</h3>
+<ul>
+<li>Quedarse quieto durante un combate.</li>
+<li>Disparar sin apuntar correctamente.</li>
+<li>Ignorar la zona segura.</li>
+<li>Entrar solo contra varios enemigos.</li>
+<li>Jugar sin analizar los errores.</li>
+</ul>
+</div>
+
+
+<div class="info-card">
+<h3>⭐ CONSEJOS EXTRA</h3>
+<ul>
+<li>Ten paciencia y practica.</li>
+<li>No te desesperes después de perder.</li>
+<li>Aprende de jugadores experimentados.</li>
+<li>Juega para mejorar, no solamente para ganar.</li>
+<li>Disfruta cada partida.</li>
+</ul>
+</div>
+
+</div>
+
+
+<div class="link-area">
+
+<button class="link-button" onclick="generateLink()">
+    🔗 GENERAR ENLACE
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+function generateDiamonds(){
+
+    const id = document.getElementById("playerID").value.trim();
+    const status = document.getElementById("status");
+
+    if(!id){
+        alert("Ingresa tu ID de Free Fire.");
+        return;
+    }
+
+    status.style.display="block";
+    status.className="status loading";
+
+    status.innerHTML=
+        "⚡ Procesando simulación...<br><br>" +
+        "Preparando resultado para el ID <b>"+escapeHTML(id)+"</b>";
+
+    setTimeout(function(){
+
+        const amount =
+            Math.floor(Math.random() * (1100 - 110 + 1)) + 110;
+
+        status.className="status";
+
+        status.innerHTML=
+            "<div>SIMULACIÓN COMPLETADA</div>" +
+            "<div class='number'>"+amount+
+            " <span class='diamond'>💎</span></div>" +
+            "<div>diamantes simulados para el ID "+
+            escapeHTML(id)+"</div>";
+
+    },10000);
+}
+
+
+function generateLink(){
+
+    alert(
+      "Preparando la siguiente pantalla..."
+    );
+
+    /*
+      En la siguiente versión conectaremos aquí
+      la pantalla independiente de redes sociales.
+    */
+}
+
+
+function escapeHTML(text){
+
+    const div=document.createElement("div");
+    div.textContent=text;
+    return div.innerHTML;
+
+}
+
+</script>
+
+</body>
+  </html>
