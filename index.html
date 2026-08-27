@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generador de Diamantes 💎</title>
+<title>Soy Sigas</title>
 
 <style>
 *{
@@ -12,570 +12,893 @@
     padding:0;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:
-      radial-gradient(circle at 50% 0%,#241044 0%,#080611 42%,#030308 100%);
-    color:white;
     min-height:100vh;
+    color:#fff;
+    background:
+    radial-gradient(circle at top,#29104e 0%,#080611 45%,#020207 100%);
 }
 
-body:before{
-    content:"";
+/* =========================
+   ADMINISTRACIÓN
+========================= */
+
+.admin-button{
+    position:fixed;
+    top:12px;
+    right:12px;
+    z-index:9999;
+
+    padding:9px 12px;
+
+    border:1px solid #9c36ff;
+    border-radius:9px;
+
+    background:rgba(7,5,14,.92);
+    color:#fff;
+
+    font-size:12px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 0 12px rgba(156,54,255,.35);
+}
+
+.admin-button:hover{
+    background:#170927;
+}
+
+/* MODAL ADMIN */
+
+.admin-overlay{
+    display:none;
+
     position:fixed;
     inset:0;
-    pointer-events:none;
-    background:
-      radial-gradient(circle,#6d24ff 1px,transparent 2px);
-    background-size:70px 70px;
-    opacity:.12;
-}
 
-/* CONTENEDOR */
+    z-index:10000;
 
-.container{
-    width:100%;
-    max-width:1100px;
-    margin:auto;
+    background:rgba(0,0,0,.82);
+
+    align-items:center;
+    justify-content:center;
+
     padding:15px;
 }
 
-/* GENERADOR */
+.admin-modal{
+    width:100%;
+    max-width:430px;
+
+    padding:24px;
+
+    border:1px solid #a62cff;
+    border-radius:17px;
+
+    background:
+    linear-gradient(145deg,#18082b,#06060d);
+
+    box-shadow:
+    0 0 35px rgba(166,44,255,.45);
+}
+
+.admin-modal h2{
+    text-align:center;
+    margin-bottom:8px;
+    color:#fff;
+}
+
+.admin-description{
+    text-align:center;
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.admin-input{
+    width:100%;
+    padding:14px;
+
+    border:1px solid #75449a;
+    border-radius:9px;
+
+    background:#08080e;
+    color:#fff;
+
+    outline:none;
+
+    font-size:16px;
+}
+
+.admin-input:focus{
+    border-color:#c034ff;
+    box-shadow:0 0 12px rgba(192,52,255,.3);
+}
+
+.admin-action{
+    width:100%;
+
+    margin-top:12px;
+
+    padding:13px;
+
+    border:0;
+    border-radius:9px;
+
+    background:linear-gradient(90deg,#7b2cff,#b72cff);
+
+    color:#fff;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.admin-close{
+    width:100%;
+
+    margin-top:10px;
+
+    padding:11px;
+
+    border:1px solid #555;
+    border-radius:9px;
+
+    background:#09090d;
+    color:#aaa;
+
+    cursor:pointer;
+}
+
+.admin-message{
+    margin-top:12px;
+
+    text-align:center;
+
+    font-size:13px;
+    color:#ff6868;
+}
+
+/* PANEL ADMIN */
+
+#adminPanel{
+    display:none;
+}
+
+.admin-panel-title{
+    color:#d45cff;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.admin-link{
+    width:100%;
+    min-height:80px;
+
+    padding:13px;
+
+    resize:vertical;
+
+    border:1px solid #75449a;
+    border-radius:9px;
+
+    background:#07070d;
+    color:#fff;
+
+    outline:none;
+
+    font-size:14px;
+}
+
+.admin-current{
+    margin-top:15px;
+    padding:12px;
+
+    border-radius:9px;
+
+    background:#08080d;
+
+    border:1px solid #333;
+
+    word-break:break-all;
+
+    color:#aaa;
+
+    font-size:12px;
+}
+
+.delete-button{
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    border:1px solid #ff4444;
+    border-radius:9px;
+
+    background:#24080a;
+
+    color:#ff7777;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+.page{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:12px;
+}
+
+/* =========================
+   PANTALLA 1
+========================= */
+
+#screen1{
+    display:block;
+}
 
 .generator{
     position:relative;
     overflow:hidden;
+
+    margin-top:35px;
+
+    padding:27px 15px 32px;
+
     border:1px solid #a238ff;
-    border-radius:18px;
+    border-radius:19px;
+
     background:
-      linear-gradient(145deg,rgba(20,8,38,.98),rgba(3,4,13,.98));
+    linear-gradient(145deg,#18082a,#05050d);
+
     box-shadow:
-      0 0 25px rgba(153,40,255,.35),
-      inset 0 0 30px rgba(95,20,160,.15);
-    padding:25px 18px 30px;
-}
-
-.generator:before,
-.generator:after{
-    content:"💎";
-    position:absolute;
-    font-size:55px;
-    opacity:.8;
-    animation:float 3s ease-in-out infinite;
-}
-
-.generator:before{
-    left:15px;
-    top:70px;
-}
-
-.generator:after{
-    right:15px;
-    top:120px;
-    animation-delay:1s;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0) rotate(-5deg)}
-    50%{transform:translateY(-12px) rotate(5deg)}
+    0 0 30px rgba(153,40,255,.35);
 }
 
 .title{
     text-align:center;
-    position:relative;
-    z-index:2;
 }
 
 .title h1{
-    font-size:clamp(35px,8vw,75px);
+    font-size:clamp(35px,9vw,75px);
     line-height:.95;
     font-weight:900;
-    text-transform:uppercase;
-    text-shadow:0 0 15px #8d25ff;
 }
 
 .title h1 span{
-    color:#12dfff;
     display:block;
+    color:#12dfff;
     text-shadow:
-      0 0 10px #00cfff,
-      0 0 25px #008cff;
+    0 0 12px #00cfff,
+    0 0 25px #008cff;
 }
 
 .subtitle{
+    text-align:center;
     margin-top:25px;
-    font-size:18px;
     font-weight:bold;
 }
 
 .subtitle span{
-    color:#ffd900;
+    color:#ffd000;
 }
 
-/* COFRES */
-
-.chests{
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
+.decor{
+    text-align:center;
+    font-size:58px;
     margin:20px 0;
-    font-size:65px;
-    filter:drop-shadow(0 0 12px #00aaff);
 }
-
-/* FORMULARIO */
 
 .form{
     max-width:500px;
     margin:auto;
-    position:relative;
-    z-index:5;
 }
 
 .input{
     width:100%;
+
     padding:17px;
+
+    border:1px solid #76548e;
     border-radius:10px;
-    border:1px solid #755b9b;
-    background:#090912;
-    color:white;
+
+    background:#080811;
+    color:#fff;
+
     font-size:17px;
-    outline:none;
+
     text-align:center;
+    outline:none;
 }
 
 .input:focus{
     border-color:#12dfff;
-    box-shadow:0 0 15px rgba(0,210,255,.4);
 }
 
 .generate{
     width:100%;
-    margin-top:18px;
+
     padding:17px;
+    margin-top:16px;
+
     border:0;
-    border-radius:9px;
-    background:linear-gradient(90deg,#ffc400,#ffe35a);
-    color:#080808;
-    font-size:19px;
+    border-radius:10px;
+
+    background:
+    linear-gradient(90deg,#ffc400,#ffe45b);
+
+    color:#090909;
+
+    font-size:18px;
     font-weight:900;
+
     cursor:pointer;
-    box-shadow:0 0 20px rgba(255,203,0,.35);
 }
-
-.generate:active{
-    transform:scale(.98);
-}
-
-/* ESTADO */
 
 .status{
     display:none;
+
     max-width:550px;
+
     margin:25px auto 0;
-    padding:22px;
+
+    padding:20px;
+
     text-align:center;
+
     border-radius:12px;
+
     border:1px solid #00d65a;
-    background:rgba(0,80,30,.25);
+
+    background:#003d1d55;
 }
 
 .status.loading{
     border-color:#00cfff;
-    background:rgba(0,80,120,.2);
+    background:#003c5555;
 }
 
 .status .number{
-    font-size:52px;
+    font-size:50px;
     color:#ffd000;
     font-weight:900;
-    margin:7px 0;
+    margin:8px;
 }
 
-.status .diamond{
-    color:#12dfff;
-}
-
-/* INFORMACION */
+/* INFO FREE FIRE */
 
 .section-title{
     text-align:center;
+
     margin:45px 0 10px;
-    font-size:31px;
-    text-transform:uppercase;
-    text-shadow:0 0 12px #9c2cff;
+
+    font-size:30px;
+
+    text-shadow:0 0 15px #a329ff;
 }
 
 .section-subtitle{
     text-align:center;
-    color:#c044ff;
+
+    color:#c84cff;
+
     font-weight:bold;
+
     margin-bottom:25px;
 }
 
 .info-grid{
     display:grid;
+
     grid-template-columns:repeat(4,1fr);
+
     gap:10px;
 }
 
 .info-card{
     border:1px solid #812cff;
     border-radius:10px;
-    padding:17px 13px;
-    background:linear-gradient(145deg,#100a1b,#07070d);
-    box-shadow:0 0 10px rgba(126,35,255,.18);
+
+    padding:16px;
+
+    background:
+    linear-gradient(145deg,#10091a,#07070d);
+
+    box-shadow:
+    0 0 10px rgba(126,35,255,.15);
 }
 
 .info-card h3{
     color:#c84cff;
+
     font-size:16px;
-    margin-bottom:12px;
-}
 
-.info-card p{
-    color:#ddd;
-    font-size:13px;
-    line-height:1.55;
-}
-
-.info-card ul{
-    padding-left:17px;
+    margin-bottom:10px;
 }
 
 .info-card li{
-    color:#ddd;
-    font-size:13px;
-    margin:7px 0;
-}
+    margin:7px 0 7px 16px;
 
-/* BOTON ENLACE */
+    color:#ddd;
+
+    font-size:13px;
+
+    line-height:1.45;
+}
 
 .link-area{
     text-align:center;
-    padding:45px 0 30px;
+
+    padding:45px 0;
 }
 
-.link-button{
-    display:inline-block;
+.link-button,
+.continue-button{
     padding:15px 28px;
-    border:1px solid #b82cff;
+
+    border:1px solid #c12cff;
     border-radius:9px;
-    color:white;
-    background:#09050f;
-    box-shadow:0 0 18px rgba(180,40,255,.5);
+
+    background:#09040f;
+    color:#fff;
+
+    box-shadow:0 0 20px rgba(183,44,255,.45);
+
     font-size:18px;
     font-weight:bold;
+
     cursor:pointer;
 }
 
-.link-button:hover{
-    background:#1a0928;
+/* =========================
+   PANTALLA 2
+========================= */
+
+#screen2{
+    display:none;
+
+    min-height:100vh;
 }
 
-/* RESPONSIVE */
+.gamer-box{
+    max-width:700px;
 
-@media(max-width:800px){
+    margin:55px auto 20px;
+
+    padding:25px 15px 30px;
+
+    text-align:center;
+
+    border:1px solid #a72cff;
+    border-radius:20px;
+
+    background:
+    linear-gradient(145deg,#160622,#05050c);
+
+    box-shadow:
+    0 0 35px rgba(166,41,255,.35);
+}
+
+.gamer-logo{
+    font-size:58px;
+    margin-bottom:5px;
+}
+
+.gamer-box h1{
+    font-size:40px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    text-shadow:
+    0 0 10px #a92cff,
+    0 0 22px #7b20cc;
+}
+
+.gamer-box h2{
+    margin-top:14px;
+
+    font-size:25px;
+}
+
+.intro{
+    max-width:520px;
+
+    margin:14px auto 25px;
+
+    color:#ddd;
+
+    line-height:1.5;
+}
+
+.progress{
+    display:inline-block;
+
+    min-width:75px;
+
+    padding:9px 20px;
+
+    margin-bottom:20px;
+
+    border-radius:30px;
+
+    border:1px solid #c02cff;
+
+    background:#10051b;
+
+    color:#d968ff;
+
+    font-size:18px;
+
+    font-weight:900;
+}
+
+.social-card{
+    margin:14px 0;
+
+    padding:18px;
+
+    border:1px solid #63358b;
+
+    border-radius:13px;
+
+    background:
+    linear-gradient(145deg,#100a18,#07070d);
+}
+
+.social-card.completed{
+    border-color:#00dc62;
+
+    box-shadow:
+    0 0 18px rgba(0,220,98,.22);
+}
+
+.social-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+}
+
+.social-name{
+    font-size:20px;
+    font-weight:900;
+}
+
+.social-account{
+    color:#aaa;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.social-button{
+    border:0;
+
+    border-radius:9px;
+
+    padding:12px 18px;
+
+    background:
+    linear-gradient(90deg,#7130ff,#a52cff);
+
+    color:#fff;
+
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.social-card.completed .social-button{
+    background:
+    linear-gradient(90deg,#008d40,#00bd58);
+}
+
+.social-status{
+    margin-top:10px;
+
+    color:#aaa;
+
+    font-size:13px;
+
+    text-align:left;
+}
+
+.note{
+    margin-top:30px;
+
+    padding:20px;
+
+    border-radius:13px;
+
+    border:1px solid #75469b;
+
+    background:#090711;
+
+    text-align:left;
+
+    line-height:1.6;
+}
+
+.note h3{
+    color:#ffd000;
+    margin-bottom:14px;
+}
+
+.note p{
+    margin:12px 0;
+
+    color:#ddd;
+
+    font-size:14px;
+}
+
+#continueBtn{
+    display:none;
+
+    width:100%;
+
+    margin-top:28px;
+
+    border:0;
+
+    background:
+    linear-gradient(90deg,#00b94f,#00df69);
+
+    color:#061008;
+}
+
+/* =========================
+   PANTALLA 3
+========================= */
+
+#screen3{
+    display:none;
+
+    min-height:100vh;
+}
+
+.hair-box{
+    max-width:850px;
+
+    margin:55px auto 20px;
+
+    padding:25px 15px 35px;
+
+    border:1px solid #a238ff;
+    border-radius:20px;
+
+    background:
+    linear-gradient(145deg,#17092a,#05050d);
+
+    box-shadow:
+    0 0 30px rgba(162,56,255,.3);
+}
+
+.hair-title{
+    text-align:center;
+
+    font-size:35px;
+
+    color:#e5a1ff;
+
+    text-shadow:
+    0 0 15px #9c2cff;
+}
+
+.hair-intro{
+    max-width:700px;
+
+    margin:15px auto 25px;
+
+    text-align:center;
+
+    color:#ddd;
+
+    line-height:1.6;
+}
+
+.hair-grid{
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:12px;
+}
+
+.hair-card{
+    padding:18px;
+
+    border:1px solid #64327d;
+
+    border-radius:12px;
+
+    background:#09070f;
+}
+
+.hair-card h3{
+    color:#d45cff;
+
+    margin-bottom:10px;
+}
+
+.hair-card p{
+    color:#ddd;
+
+    font-size:14px;
+
+    line-height:1.6;
+}
+
+.hair-button-area{
+    text-align:center;
+
+    margin-top:30px;
+}
+
+.generate-now{
+    padding:15px 30px;
+
+    border:0;
+    border-radius:10px;
+
+    background:
+    linear-gradient(90deg,#a62cff,#d14cff);
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 0 20px rgba(190,44,255,.35);
+}
+
+/* BARRA HORIZONTAL */
+
+.progress-container{
+    display:none;
+
+    max-width:600px;
+
+    margin:25px auto 0;
+}
+
+.progress-bar-background{
+    width:100%;
+
+    height:16px;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    border:1px solid #8fdcff;
+
+    box-shadow:
+    0 0 15px rgba(0,190,255,.3);
+}
+
+.progress-bar{
+    width:0%;
+
+    height:100%;
+
+    background:
+    linear-gradient(90deg,#fff,#4abfff,#008cff);
+
+    border-radius:20px;
+}
+
+.generated{
+    display:none;
+
+    max-width:600px;
+
+    margin:25px auto 0;
+
+    padding:20px;
+
+    border:1px solid #00dc62;
+
+    border-radius:13px;
+
+    background:#04331855;
+
+    text-align:center;
+}
+
+.generated h3{
+    color:#55ff98;
+
+    margin-bottom:12px;
+}
+
+.generated-link{
+    display:block;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    background:#06070b;
+
+    color:#6ed6ff;
+
+    word-break:break-all;
+
+    font-size:13px;
+
+    text-decoration:none;
+}
+
+.download-button{
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:13px 22px;
+
+    border-radius:9px;
+
+    background:
+    linear-gradient(90deg,#00a84a,#00dc62);
+
+    color:#031008;
+
+    font-weight:900;
+
+    text-decoration:none;
+}
+
+.no-link{
+    color:#ff7777;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+
     .info-grid{
         grid-template-columns:repeat(2,1fr);
     }
+
 }
 
-@media(max-width:500px){
-    .container{
-        padding:8px;
-    }
-
-    .generator{
-        padding:20px 12px 25px;
-    }
-
-    .chests{
-        font-size:45px;
-    }
+@media(max-width:550px){
 
     .info-grid{
         grid-template-columns:1fr;
     }
 
-    .info-card{
-        padding:18px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<section class="generator">
-
-<div class="title">
-    <h1>
-        GENERADOR DE
-        <span>DIAMANTES</span>
-    </h1>
-</div>
-
-<p class="subtitle" style="text-align:center;">
-    INGRESA TU <span>ID DE FREE FIRE</span>
-</p>
-
-<div class="chests">
-    <span>💎</span>
-    <span>🧰</span>
-    <span>💎</span>
-</div>
-
-<div class="form">
-
-<input
-    id="playerID"
-    class="input"
-    type="text"
-    inputmode="numeric"
-    placeholder="Ejemplo: 1234567890"
->
-
-<button class="generate" onclick="generateDiamonds()">
-    💎 GENERAR DIAMANTES
-</button>
-
-</div>
-
-<div id="status" class="status"></div>
-
-</section>
-
-
-<!-- INFORMACION -->
-
-<h2 class="section-title">⚡ DATOS DE FREE FIRE ⚡</h2>
-
-<p class="section-subtitle">
-    CONSEJOS Y DATOS PARA SER UN MEJOR JUGADOR
-</p>
-
-
-<div class="info-grid">
-
-<div class="info-card">
-<h3>🎯 MEJOR PRECISIÓN</h3>
-<ul>
-<li>Mantén la mira a la altura de la cabeza.</li>
-<li>Practica movimientos mientras apuntas.</li>
-<li>Evita disparar sin controlar el retroceso.</li>
-<li>Aprende a realizar pequeños ajustes de mira.</li>
-<li>Practica constantemente en entrenamiento.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>⚙️ SENSIBILIDAD</h3>
-<ul>
-<li>Prueba diferentes configuraciones.</li>
-<li>Busca una sensibilidad que puedas controlar.</li>
-<li>No copies automáticamente la configuración de otro jugador.</li>
-<li>Haz pequeños cambios y prueba nuevamente.</li>
-<li>Prioriza el control sobre la velocidad.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>🎯 MEJOR PUNTERÍA</h3>
-<ul>
-<li>Dispara en ráfagas cuando sea necesario.</li>
-<li>Aprende el comportamiento de cada arma.</li>
-<li>Controla el retroceso.</li>
-<li>Practica tiros a diferentes distancias.</li>
-<li>Entrena la reacción y el seguimiento.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>🛡️ DUELO DE ESCUADRAS</h3>
-<ul>
-<li>Mantén comunicación con tu equipo.</li>
-<li>No te separes innecesariamente.</li>
-<li>Controla las posiciones importantes.</li>
-<li>Aprende cuándo atacar y cuándo retroceder.</li>
-<li>Ayuda a tus compañeros cuando sea posible.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>👑 BATTLE ROYALE</h3>
-<ul>
-<li>Elige cuidadosamente dónde aterrizar.</li>
-<li>Busca armas y recursos rápidamente.</li>
-<li>Observa siempre la zona segura.</li>
-<li>Evita enfrentamientos innecesarios.</li>
-<li>Utiliza el mapa para planificar tus movimientos.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>🏃 MOVIMIENTO</h3>
-<ul>
-<li>No permanezcas quieto durante los enfrentamientos.</li>
-<li>Practica desplazamientos laterales.</li>
-<li>Aprende a usar las coberturas.</li>
-<li>Combina movimiento y puntería.</li>
-<li>Practica cambios rápidos de dirección.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>📱 CONFIGURACIÓN</h3>
-<ul>
-<li>Personaliza el HUD según tu comodidad.</li>
-<li>Utiliza botones fáciles de alcanzar.</li>
-<li>Ajusta los gráficos según el rendimiento del dispositivo.</li>
-<li>Evita configuraciones que produzcan demasiados retrasos.</li>
-<li>Prueba la configuración antes de una partida.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>🧠 ESTRATEGIAS</h3>
-<ul>
-<li>Aprende las zonas del mapa.</li>
-<li>Observa las rutas de tus enemigos.</li>
-<li>Escucha los sonidos del entorno.</li>
-<li>Piensa antes de entrar en un enfrentamiento.</li>
-<li>Ten siempre una ruta de escape.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>🏋️ ENTRENAMIENTO</h3>
-<ul>
-<li>Practica regularmente.</li>
-<li>Trabaja la precisión.</li>
-<li>Entrena tu velocidad de reacción.</li>
-<li>Practica diferentes distancias.</li>
-<li>Revisa tus errores después de jugar.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>🔫 ARMAS</h3>
-<ul>
-<li>Aprende las características de cada arma.</li>
-<li>Conoce su alcance efectivo.</li>
-<li>Practica el control del retroceso.</li>
-<li>Utiliza el arma adecuada según la distancia.</li>
-<li>No dependas de una sola arma.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>⚠️ ERRORES COMUNES</h3>
-<ul>
-<li>Quedarse quieto durante un combate.</li>
-<li>Disparar sin apuntar correctamente.</li>
-<li>Ignorar la zona segura.</li>
-<li>Entrar solo contra varios enemigos.</li>
-<li>Jugar sin analizar los errores.</li>
-</ul>
-</div>
-
-
-<div class="info-card">
-<h3>⭐ CONSEJOS EXTRA</h3>
-<ul>
-<li>Ten paciencia y practica.</li>
-<li>No te desesperes después de perder.</li>
-<li>Aprende de jugadores experimentados.</li>
-<li>Juega para mejorar, no solamente para ganar.</li>
-<li>Disfruta cada partida.</li>
-</ul>
-</div>
-
-</div>
-
-
-<div class="link-area">
-
-<button class="link-button" onclick="generateLink()">
-    🔗 GENERAR ENLACE
-</button>
-
-</div>
-
-</div>
-
-
-<script>
-
-function generateDiamonds(){
-
-    const id = document.getElementById("playerID").value.trim();
-    const status = document.getElementById("status");
-
-    if(!id){
-        alert("Ingresa tu ID de Free Fire.");
-        return;
+    .hair-grid{
+        grid-template-columns:1fr;
     }
 
-    status.style.display="block";
-    status.className="status loading";
-
-    status.innerHTML=
-        "⚡ Procesando simulación...<br><br>" +
-        "Preparando resultado para el ID <b>"+escapeHTML(id)+"</b>";
-
-    setTimeout(function(){
-
-        const amount =
-            Math.floor(Math.random() * (1100 - 110 + 1)) + 110;
-
-        status.className="status";
-
-        status.innerHTML=
-            "<div>SIMULACIÓN COMPLETADA</div>" +
-            "<div class='number'>"+amount+
-            " <span class='diamond'>💎</span></div>" +
-            "<div>diamantes simulados para el ID "+
-            escapeHTML(id)+"</div>";
-
-    },10000);
-}
-
-
-function generateLink(){
-
-    alert(
-      "Preparando la siguiente pantalla..."
-    );
-
-    /*
-      En la siguiente versión conectaremos aquí
-      la pantalla independiente de redes sociales.
-    */
-}
-
-
-function escapeHTML(text){
-
-    const div=document.createElement("div");
-    div.textContent=text;
-    return div.innerHTML;
-
-}
-
-</script>
-
-</body>
-  </html>
+    .social-top{
+        flex
