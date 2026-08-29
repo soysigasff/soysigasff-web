@@ -1,904 +1,710 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Soy Sigas</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    min-height:100vh;
-    color:#fff;
-    background:
-    radial-gradient(circle at top,#29104e 0%,#080611 45%,#020207 100%);
-}
-
-/* =========================
-   ADMINISTRACIÓN
-========================= */
-
-.admin-button{
-    position:fixed;
-    top:12px;
-    right:12px;
-    z-index:9999;
-
-    padding:9px 12px;
-
-    border:1px solid #9c36ff;
-    border-radius:9px;
-
-    background:rgba(7,5,14,.92);
-    color:#fff;
-
-    font-size:12px;
-    font-weight:bold;
-
-    cursor:pointer;
-
-    box-shadow:0 0 12px rgba(156,54,255,.35);
-}
-
-.admin-button:hover{
-    background:#170927;
-}
-
-/* MODAL ADMIN */
-
-.admin-overlay{
-    display:none;
-
-    position:fixed;
-    inset:0;
-
-    z-index:10000;
-
-    background:rgba(0,0,0,.82);
-
-    align-items:center;
-    justify-content:center;
-
-    padding:15px;
-}
-
-.admin-modal{
-    width:100%;
-    max-width:430px;
-
-    padding:24px;
-
-    border:1px solid #a62cff;
-    border-radius:17px;
-
-    background:
-    linear-gradient(145deg,#18082b,#06060d);
-
-    box-shadow:
-    0 0 35px rgba(166,44,255,.45);
-}
-
-.admin-modal h2{
-    text-align:center;
-    margin-bottom:8px;
-    color:#fff;
-}
-
-.admin-description{
-    text-align:center;
-    color:#aaa;
-    font-size:13px;
-    margin-bottom:20px;
-}
-
-.admin-input{
-    width:100%;
-    padding:14px;
-
-    border:1px solid #75449a;
-    border-radius:9px;
-
-    background:#08080e;
-    color:#fff;
-
-    outline:none;
-
-    font-size:16px;
-}
-
-.admin-input:focus{
-    border-color:#c034ff;
-    box-shadow:0 0 12px rgba(192,52,255,.3);
-}
-
-.admin-action{
-    width:100%;
-
-    margin-top:12px;
-
-    padding:13px;
-
-    border:0;
-    border-radius:9px;
-
-    background:linear-gradient(90deg,#7b2cff,#b72cff);
-
-    color:#fff;
-
-    font-size:16px;
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.admin-close{
-    width:100%;
-
-    margin-top:10px;
-
-    padding:11px;
-
-    border:1px solid #555;
-    border-radius:9px;
-
-    background:#09090d;
-    color:#aaa;
-
-    cursor:pointer;
-}
-
-.admin-message{
-    margin-top:12px;
-
-    text-align:center;
-
-    font-size:13px;
-    color:#ff6868;
-}
-
-/* PANEL ADMIN */
-
-#adminPanel{
-    display:none;
-}
-
-.admin-panel-title{
-    color:#d45cff;
-    text-align:center;
-    margin-bottom:15px;
-}
-
-.admin-link{
-    width:100%;
-    min-height:80px;
-
-    padding:13px;
-
-    resize:vertical;
-
-    border:1px solid #75449a;
-    border-radius:9px;
-
-    background:#07070d;
-    color:#fff;
-
-    outline:none;
-
-    font-size:14px;
-}
-
-.admin-current{
-    margin-top:15px;
-    padding:12px;
-
-    border-radius:9px;
-
-    background:#08080d;
-
-    border:1px solid #333;
-
-    word-break:break-all;
-
-    color:#aaa;
-
-    font-size:12px;
-}
-
-.delete-button{
-    width:100%;
-
-    margin-top:10px;
-
-    padding:12px;
-
-    border:1px solid #ff4444;
-    border-radius:9px;
-
-    background:#24080a;
-
-    color:#ff7777;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-/* =========================
-   GENERAL
-========================= */
-
-.page{
-    width:100%;
-    max-width:1100px;
-    margin:auto;
-    padding:12px;
-}
-
-/* =========================
-   PANTALLA 1
-========================= */
-
-#screen1{
-    display:block;
-}
-
-.generator{
-    position:relative;
-    overflow:hidden;
-
-    margin-top:35px;
-
-    padding:27px 15px 32px;
-
-    border:1px solid #a238ff;
-    border-radius:19px;
-
-    background:
-    linear-gradient(145deg,#18082a,#05050d);
-
-    box-shadow:
-    0 0 30px rgba(153,40,255,.35);
-}
-
-.title{
-    text-align:center;
-}
-
-.title h1{
-    font-size:clamp(35px,9vw,75px);
-    line-height:.95;
-    font-weight:900;
-}
-
-.title h1 span{
-    display:block;
-    color:#12dfff;
-    text-shadow:
-    0 0 12px #00cfff,
-    0 0 25px #008cff;
-}
-
-.subtitle{
-    text-align:center;
-    margin-top:25px;
-    font-weight:bold;
-}
-
-.subtitle span{
-    color:#ffd000;
-}
-
-.decor{
-    text-align:center;
-    font-size:58px;
-    margin:20px 0;
-}
-
-.form{
-    max-width:500px;
-    margin:auto;
-}
-
-.input{
-    width:100%;
-
-    padding:17px;
-
-    border:1px solid #76548e;
-    border-radius:10px;
-
-    background:#080811;
-    color:#fff;
-
-    font-size:17px;
-
-    text-align:center;
-    outline:none;
-}
-
-.input:focus{
-    border-color:#12dfff;
-}
-
-.generate{
-    width:100%;
-
-    padding:17px;
-    margin-top:16px;
-
-    border:0;
-    border-radius:10px;
-
-    background:
-    linear-gradient(90deg,#ffc400,#ffe45b);
-
-    color:#090909;
-
-    font-size:18px;
-    font-weight:900;
-
-    cursor:pointer;
-}
-
-.status{
-    display:none;
-
-    max-width:550px;
-
-    margin:25px auto 0;
-
-    padding:20px;
-
-    text-align:center;
-
-    border-radius:12px;
-
-    border:1px solid #00d65a;
-
-    background:#003d1d55;
-}
-
-.status.loading{
-    border-color:#00cfff;
-    background:#003c5555;
-}
-
-.status .number{
-    font-size:50px;
-    color:#ffd000;
-    font-weight:900;
-    margin:8px;
-}
-
-/* INFO FREE FIRE */
-
-.section-title{
-    text-align:center;
-
-    margin:45px 0 10px;
-
-    font-size:30px;
-
-    text-shadow:0 0 15px #a329ff;
-}
-
-.section-subtitle{
-    text-align:center;
-
-    color:#c84cff;
-
-    font-weight:bold;
-
-    margin-bottom:25px;
-}
-
-.info-grid{
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:10px;
-}
-
-.info-card{
-    border:1px solid #812cff;
-    border-radius:10px;
-
-    padding:16px;
-
-    background:
-    linear-gradient(145deg,#10091a,#07070d);
-
-    box-shadow:
-    0 0 10px rgba(126,35,255,.15);
-}
-
-.info-card h3{
-    color:#c84cff;
-
-    font-size:16px;
-
-    margin-bottom:10px;
-}
-
-.info-card li{
-    margin:7px 0 7px 16px;
-
-    color:#ddd;
-
-    font-size:13px;
-
-    line-height:1.45;
-}
-
-.link-area{
-    text-align:center;
-
-    padding:45px 0;
-}
-
-.link-button,
-.continue-button{
-    padding:15px 28px;
-
-    border:1px solid #c12cff;
-    border-radius:9px;
-
-    background:#09040f;
-    color:#fff;
-
-    box-shadow:0 0 20px rgba(183,44,255,.45);
-
-    font-size:18px;
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-/* =========================
-   PANTALLA 2
-========================= */
-
-#screen2{
-    display:none;
-
-    min-height:100vh;
-}
-
-.gamer-box{
-    max-width:700px;
-
-    margin:55px auto 20px;
-
-    padding:25px 15px 30px;
-
-    text-align:center;
-
-    border:1px solid #a72cff;
-    border-radius:20px;
-
-    background:
-    linear-gradient(145deg,#160622,#05050c);
-
-    box-shadow:
-    0 0 35px rgba(166,41,255,.35);
-}
-
-.gamer-logo{
-    font-size:58px;
-    margin-bottom:5px;
-}
-
-.gamer-box h1{
-    font-size:40px;
-
-    font-weight:900;
-
-    text-transform:uppercase;
-
-    text-shadow:
-    0 0 10px #a92cff,
-    0 0 22px #7b20cc;
-}
-
-.gamer-box h2{
-    margin-top:14px;
-
-    font-size:25px;
-}
-
-.intro{
-    max-width:520px;
-
-    margin:14px auto 25px;
-
-    color:#ddd;
-
-    line-height:1.5;
-}
-
-.progress{
-    display:inline-block;
-
-    min-width:75px;
-
-    padding:9px 20px;
-
-    margin-bottom:20px;
-
-    border-radius:30px;
-
-    border:1px solid #c02cff;
-
-    background:#10051b;
-
-    color:#d968ff;
-
-    font-size:18px;
-
-    font-weight:900;
-}
-
-.social-card{
-    margin:14px 0;
-
-    padding:18px;
-
-    border:1px solid #63358b;
-
-    border-radius:13px;
-
-    background:
-    linear-gradient(145deg,#100a18,#07070d);
-}
-
-.social-card.completed{
-    border-color:#00dc62;
-
-    box-shadow:
-    0 0 18px rgba(0,220,98,.22);
-}
-
-.social-top{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:12px;
-}
-
-.social-name{
-    font-size:20px;
-    font-weight:900;
-}
-
-.social-account{
-    color:#aaa;
-    font-size:13px;
-    margin-top:4px;
-}
-
-.social-button{
-    border:0;
-
-    border-radius:9px;
-
-    padding:12px 18px;
-
-    background:
-    linear-gradient(90deg,#7130ff,#a52cff);
-
-    color:#fff;
-
-    font-weight:900;
-
-    cursor:pointer;
-}
-
-.social-card.completed .social-button{
-    background:
-    linear-gradient(90deg,#008d40,#00bd58);
-}
-
-.social-status{
-    margin-top:10px;
-
-    color:#aaa;
-
-    font-size:13px;
-
-    text-align:left;
-}
-
-.note{
-    margin-top:30px;
-
-    padding:20px;
-
-    border-radius:13px;
-
-    border:1px solid #75469b;
-
-    background:#090711;
-
-    text-align:left;
-
-    line-height:1.6;
-}
-
-.note h3{
-    color:#ffd000;
-    margin-bottom:14px;
-}
-
-.note p{
-    margin:12px 0;
-
-    color:#ddd;
-
-    font-size:14px;
-}
-
-#continueBtn{
-    display:none;
-
-    width:100%;
-
-    margin-top:28px;
-
-    border:0;
-
-    background:
-    linear-gradient(90deg,#00b94f,#00df69);
-
-    color:#061008;
-}
-
-/* =========================
-   PANTALLA 3
-========================= */
-
-#screen3{
-    display:none;
-
-    min-height:100vh;
-}
-
-.hair-box{
-    max-width:850px;
-
-    margin:55px auto 20px;
-
-    padding:25px 15px 35px;
-
-    border:1px solid #a238ff;
-    border-radius:20px;
-
-    background:
-    linear-gradient(145deg,#17092a,#05050d);
-
-    box-shadow:
-    0 0 30px rgba(162,56,255,.3);
-}
-
-.hair-title{
-    text-align:center;
-
-    font-size:35px;
-
-    color:#e5a1ff;
-
-    text-shadow:
-    0 0 15px #9c2cff;
-}
-
-.hair-intro{
-    max-width:700px;
-
-    margin:15px auto 25px;
-
-    text-align:center;
-
-    color:#ddd;
-
-    line-height:1.6;
-}
-
-.hair-grid{
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:12px;
-}
-
-.hair-card{
-    padding:18px;
-
-    border:1px solid #64327d;
-
-    border-radius:12px;
-
-    background:#09070f;
-}
-
-.hair-card h3{
-    color:#d45cff;
-
-    margin-bottom:10px;
-}
-
-.hair-card p{
-    color:#ddd;
-
-    font-size:14px;
-
-    line-height:1.6;
-}
-
-.hair-button-area{
-    text-align:center;
-
-    margin-top:30px;
-}
-
-.generate-now{
-    padding:15px 30px;
-
-    border:0;
-    border-radius:10px;
-
-    background:
-    linear-gradient(90deg,#a62cff,#d14cff);
-
-    color:#fff;
-
-    font-size:18px;
-
-    font-weight:900;
-
-    cursor:pointer;
-
-    box-shadow:
-    0 0 20px rgba(190,44,255,.35);
-}
-
-/* BARRA HORIZONTAL */
-
-.progress-container{
-    display:none;
-
-    max-width:600px;
-
-    margin:25px auto 0;
-}
-
-.progress-bar-background{
-    width:100%;
-
-    height:16px;
-
-    overflow:hidden;
-
-    border-radius:20px;
-
-    background:#fff;
-
-    border:1px solid #8fdcff;
-
-    box-shadow:
-    0 0 15px rgba(0,190,255,.3);
-}
-
-.progress-bar{
-    width:0%;
-
-    height:100%;
-
-    background:
-    linear-gradient(90deg,#fff,#4abfff,#008cff);
-
-    border-radius:20px;
-}
-
-.generated{
-    display:none;
-
-    max-width:600px;
-
-    margin:25px auto 0;
-
-    padding:20px;
-
-    border:1px solid #00dc62;
-
-    border-radius:13px;
-
-    background:#04331855;
-
-    text-align:center;
-}
-
-.generated h3{
-    color:#55ff98;
-
-    margin-bottom:12px;
-}
-
-.generated-link{
-    display:block;
-
-    padding:12px;
-
-    border-radius:9px;
-
-    background:#06070b;
-
-    color:#6ed6ff;
-
-    word-break:break-all;
-
-    font-size:13px;
-
-    text-decoration:none;
-}
-
-.download-button{
-    display:inline-block;
-
-    margin-top:15px;
-
-    padding:13px 22px;
-
-    border-radius:9px;
-
-    background:
-    linear-gradient(90deg,#00a84a,#00dc62);
-
-    color:#031008;
-
-    font-weight:900;
-
-    text-decoration:none;
-}
-
-.no-link{
-    color:#ff7777;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:850px){
-
-    .info-grid{
-        grid-template-columns:repeat(2,1fr);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
+  <title>SOY SIGAS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
-}
-
-@media(max-width:550px){
-
-    .info-grid{
-        grid-template-columns:1fr;
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: white;
     }
 
-    .hair-grid{
-        grid-template-columns:1fr;
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255, 190, 0, 0.10), transparent 28%),
+        radial-gradient(circle at 15% 85%, rgba(255, 170, 0, 0.07), transparent 25%),
+        #050505;
     }
 
-    .social-top{
-        flex
+    /* FONDO */
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(30deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+        linear-gradient(150deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+        linear-gradient(30deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+        linear-gradient(150deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
+        linear-gradient(60deg, #151515 25%, transparent 25.5%, transparent 75%, #151515 75%);
+      background-size: 45px 80px;
+      background-position: 0 0, 0 0, 22px 40px, 22px 40px, 0 0;
+    }
+
+    .gold-streak {
+      position: absolute;
+      width: 55vw;
+      height: 7px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #8b5c00,
+        #ffd45a,
+        #fff0a0,
+        #8b5c00,
+        transparent
+      );
+      transform: rotate(-32deg);
+      opacity: 0.65;
+      filter: blur(1px);
+    }
+
+    .streak1 {
+      top: 5%;
+      left: -18%;
+    }
+
+    .streak2 {
+      bottom: 9%;
+      right: -18%;
+      transform: rotate(-32deg);
+    }
+
+    .streak3 {
+      top: 42%;
+      right: -30%;
+      transform: rotate(-32deg);
+      opacity: 0.25;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .page {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 28px 20px 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* LOGO */
+    .logo-area {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5px;
+    }
+
+    .logo-circle {
+      position: relative;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      border: 5px solid #c99316;
+      background:
+        radial-gradient(circle, #222 0%, #0b0b0b 70%);
+      box-shadow:
+        0 0 15px rgba(255, 196, 50, 0.35),
+        inset 0 0 25px rgba(255, 190, 30, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-circle::before,
+    .logo-circle::after {
+      content: "";
+      position: absolute;
+      width: 46px;
+      height: 80px;
+      border: 4px solid #b47b0b;
+      top: 58px;
+    }
+
+    .logo-circle::before {
+      left: -40px;
+      transform: skewY(-20deg) rotate(-18deg);
+      border-right: 0;
+      border-radius: 20px 0 0 20px;
+    }
+
+    .logo-circle::after {
+      right: -40px;
+      transform: skewY(20deg) rotate(18deg);
+      border-left: 0;
+      border-radius: 0 20px 20px 0;
+    }
+
+    .crown {
+      position: absolute;
+      top: -43px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 68px;
+      line-height: 1;
+      filter:
+        drop-shadow(0 0 4px #ffcf45)
+        drop-shadow(0 4px 2px #4b3100);
+    }
+
+    .ss {
+      font-size: 92px;
+      line-height: 1;
+      font-weight: 1000;
+      font-style: italic;
+      letter-spacing: -12px;
+      margin-right: 12px;
+      background: linear-gradient(
+        180deg,
+        #fff2a2 0%,
+        #ffc928 30%,
+        #b97600 65%,
+        #fff0a0 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        3px 3px 0 #382400,
+        0 0 8px rgba(255, 199, 45, 0.4);
+    }
+
+    .brand {
+      margin-top: 25px;
+      font-size: clamp(42px, 11vw, 64px);
+      font-weight: 1000;
+      letter-spacing: 2px;
+      line-height: 1;
+      text-align: center;
+      background: linear-gradient(
+        180deg,
+        #fff6c3,
+        #ffd23b 38%,
+        #a96800 72%,
+        #fff0a0
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        3px 3px 0 #241700,
+        0 0 10px rgba(255, 194, 30, 0.3);
+    }
+
+    .brand-line {
+      width: 250px;
+      height: 4px;
+      margin-top: 10px;
+      border-radius: 50%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #ffd33d,
+        #fff1a0,
+        #ffd33d,
+        transparent
+      );
+      box-shadow: 0 0 8px rgba(255, 205, 55, 0.5);
+    }
+
+    /* TITULO */
+    .follow-title {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .follow-title h1 {
+      font-size: clamp(40px, 11vw, 58px);
+      font-weight: 1000;
+      letter-spacing: 1px;
+      line-height: 1;
+      color: white;
+      text-shadow: 0 4px 8px #000;
+    }
+
+    .follow-title p {
+      margin-top: 12px;
+      font-size: clamp(19px, 5vw, 27px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #f6c72d;
+      text-shadow: 0 2px 4px #000;
+    }
+
+    /* FACEBOOK */
+    .facebook-button {
+      width: 100%;
+      max-width: 410px;
+      min-height: 125px;
+      margin-top: 42px;
+      padding: 18px 22px;
+      border-radius: 25px;
+      border: 3px solid #2587ff;
+      background: linear-gradient(
+        145deg,
+        #3b8cff,
+        #0757cf
+      );
+      box-shadow:
+        0 0 18px rgba(31, 126, 255, 0.6),
+        inset 0 0 12px rgba(255, 255, 255, 0.15);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      user-select: none;
+    }
+
+    .facebook-button:active {
+      transform: scale(0.97);
+      filter: brightness(0.9);
+    }
+
+    .facebook-icon {
+      width: 67px;
+      height: 67px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: white;
+      color: #1877f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 58px;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      line-height: 1;
+    }
+
+    .facebook-text {
+      text-align: left;
+    }
+
+    .facebook-name {
+      display: block;
+      font-size: clamp(24px, 6vw, 34px);
+      font-weight: 1000;
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+
+    .facebook-user {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(21px, 5vw, 27px);
+      font-weight: 700;
+    }
+
+    /* CONTINUAR */
+    .continue-button {
+      width: 100%;
+      max-width: 410px;
+      min-height: 105px;
+      margin-top: 48px;
+      border-radius: 24px;
+      border: 3px solid #4d4d4d;
+      background: linear-gradient(
+        145deg,
+        #444,
+        #292929
+      );
+      color: #999;
+      font-size: clamp(28px, 7vw, 39px);
+      font-weight: 1000;
+      letter-spacing: 1px;
+      box-shadow:
+        inset 0 0 12px rgba(255, 255, 255, 0.05),
+        0 5px 15px rgba(0, 0, 0, 0.5);
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .lock {
+      font-size: 37px;
+    }
+
+    /* ESTADO DESBLOQUEADO */
+    .continue-button.unlocked {
+      border-color: #e8b62b;
+      background: linear-gradient(
+        145deg,
+        #ffd83e,
+        #c58200
+      );
+      color: #171717;
+      cursor: pointer;
+      box-shadow:
+        0 0 20px rgba(255, 197, 40, 0.55),
+        inset 0 0 12px rgba(255, 255, 255, 0.25);
+      animation: pulseButton 1.8s infinite;
+    }
+
+    .continue-button.unlocked .lock {
+      display: none;
+    }
+
+    .continue-button:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes pulseButton {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 197, 40, 0.35);
+      }
+
+      50% {
+        box-shadow: 0 0 28px rgba(255, 197, 40, 0.75);
+      }
+    }
+
+    /* TEXTO INFERIOR */
+    .footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      letter-spacing: 1px;
+    }
+
+    /* MÓVILES PEQUEÑOS */
+    @media (max-width: 380px) {
+      .page {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .logo-circle {
+        width: 155px;
+        height: 155px;
+      }
+
+      .ss {
+        font-size: 75px;
+      }
+
+      .crown {
+        font-size: 55px;
+        top: -37px;
+      }
+
+      .facebook-button {
+        min-height: 105px;
+        gap: 13px;
+      }
+
+      .facebook-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 48px;
+      }
+
+      .continue-button {
+        min-height: 90px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="background">
+    <div class="gold-streak streak1"></div>
+    <div class="gold-streak streak2"></div>
+    <div class="gold-streak streak3"></div>
+  </div>
+
+  <main class="page">
+
+    <!-- LOGO -->
+    <section class="logo-area">
+
+      <div class="logo-circle">
+        <div class="crown">♛</div>
+        <div class="ss">SS</div>
+      </div>
+
+      <div class="brand">SOY SIGAS</div>
+      <div class="brand-line"></div>
+
+    </section>
+
+    <!-- TITULO -->
+    <section class="follow-title">
+      <h1>SÍGUEME</h1>
+      <p>EN MI RED PARA CONTINUAR</p>
+    </section>
+
+    <!-- FACEBOOK -->
+    <button
+      id="facebookButton"
+      class="facebook-button"
+      type="button"
+      onclick="abrirFacebook()"
+    >
+
+      <span class="facebook-icon">f</span>
+
+      <span class="facebook-text">
+        <span class="facebook-name">FACEBOOK</span>
+        <span class="facebook-user">Soy Sigas</span>
+      </span>
+
+    </button>
+
+    <!-- CONTINUAR -->
+    <button
+      id="continueButton"
+      class="continue-button"
+      type="button"
+      disabled
+      onclick="continuar()"
+    >
+      <span>CONTINUAR</span>
+      <span class="lock">🔒</span>
+    </button>
+
+    <div class="footer">
+      SOY SIGAS
+    </div>
+
+  </main>
+
+
+  <script>
+
+    /*
+      ==========================================================
+      CONFIGURACIÓN
+      ==========================================================
+    */
+
+    const FACEBOOK_URL =
+      "https://www.facebook.com/profile.php?id=61593805138979";
+
+    const MEDIAFIRE_URL =
+      "https://www.mediafire.com/file/8724i5ox56kjb1b/FLASH+V25_21.0.apk/file";
+
+    const TIEMPO_REQUERIDO = 25 * 1000;
+
+
+    /*
+      ==========================================================
+      ESTADO
+      ==========================================================
+    */
+
+    let facebookVisitStart = null;
+    let facebookCompleted = false;
+
+
+    /*
+      ==========================================================
+      ABRIR FACEBOOK
+      ==========================================================
+    */
+
+    function abrirFacebook() {
+
+      /*
+        Guardamos el momento exacto en que la persona
+        pulsa Facebook.
+      */
+
+      facebookVisitStart = Date.now();
+
+      /*
+        Guardamos el momento también para poder comprobarlo
+        cuando el usuario regrese al sitio.
+      */
+
+      sessionStorage.setItem(
+        "facebookVisitStart",
+        facebookVisitStart.toString()
+      );
+
+      sessionStorage.setItem(
+        "facebookCompleted",
+        "false"
+      );
+
+      /*
+        Abrimos Facebook en una nueva pestaña.
+        Así el sitio queda disponible cuando el usuario
+        regrese.
+      */
+
+      window.open(
+        FACEBOOK_URL,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    }
+
+
+    /*
+      ==========================================================
+      COMPROBAR LOS 25 SEGUNDOS
+      ==========================================================
+    */
+
+    function comprobarFacebook() {
+
+      const savedStart =
+        sessionStorage.getItem("facebookVisitStart");
+
+      const completed =
+        sessionStorage.getItem("facebookCompleted");
+
+      if (!savedStart || completed === "true") {
+        return;
+      }
+
+      const inicio = parseInt(savedStart, 10);
+
+      if (isNaN(inicio)) {
+        return;
+      }
+
+      const tiempoTranscurrido =
+        Date.now() - inicio;
+
+      /*
+        Si han pasado al menos 25 segundos,
+        desbloqueamos CONTINUAR.
+      */
+
+      if (tiempoTranscurrido >= TIEMPO_REQUERIDO) {
+
+        facebookCompleted = true;
+
+        sessionStorage.setItem(
+          "facebookCompleted",
+          "true"
+        );
+
+        desbloquearContinuar();
+
+      }
+
+    }
+
+
+    /*
+      ==========================================================
+      DESBLOQUEAR CONTINUAR
+      ==========================================================
+    */
+
+    function desbloquearContinuar() {
+
+      const button =
+        document.getElementById("continueButton");
+
+      button.disabled = false;
+
+      button.classList.add("unlocked");
+
+    }
+
+
+    /*
+      ==========================================================
+      CONTINUAR
+      ==========================================================
+    */
+
+    function continuar() {
+
+      if (!facebookCompleted) {
+        return;
+      }
+
+      /*
+        Abrimos directamente MediaFire.
+      */
+
+      window.location.href = MEDIAFIRE_URL;
+
+    }
+
+
+    /*
+      ==========================================================
+      CUANDO EL USUARIO REGRESA AL SITIO
+      ==========================================================
+    */
+
+    document.addEventListener(
+      "visibilitychange",
+      function() {
+
+        if (
+          document.visibilityState === "visible"
+        ) {
+
+          comprobarFacebook();
+
+        }
+
+      }
+    );
+
+
+    window.addEventListener(
+      "pageshow",
+      function() {
+
+        comprobarFacebook();
+
+      }
+    );
+
+
+    /*
+      También comprobamos periódicamente,
+      pero SIN MOSTRAR ningún contador.
+    */
+
+    setInterval(
+      comprobarFacebook,
+      1000
+    );
+
+
+    /*
+      Comprobación inicial.
+    */
+
+    comprobarFacebook();
+
+  </script>
+
+</body>
+    </html>
