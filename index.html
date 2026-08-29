@@ -1,710 +1,938 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#050505">
-  <title>SOY SIGAS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>SOY SIGAS</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
 
-    html, body {
-      width: 100%;
-      min-height: 100%;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #050505;
-      color: white;
-    }
+html,body{
+    width:100%;
+    min-height:100%;
+}
 
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(255, 190, 0, 0.10), transparent 28%),
-        radial-gradient(circle at 15% 85%, rgba(255, 170, 0, 0.07), transparent 25%),
-        #050505;
-    }
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 50% 20%,rgba(255,190,0,.13),transparent 30%),
+        radial-gradient(circle at 10% 90%,rgba(255,170,0,.08),transparent 25%),
+        #030303;
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+}
 
-    /* FONDO */
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
+/* =========================
+   FONDO GAMER
+========================= */
 
-    .background::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.18;
-      background-image:
-        linear-gradient(30deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
-        linear-gradient(150deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
-        linear-gradient(30deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
-        linear-gradient(150deg, #111 12%, transparent 12.5%, transparent 87%, #111 87.5%, #111),
-        linear-gradient(60deg, #151515 25%, transparent 25.5%, transparent 75%, #151515 75%);
-      background-size: 45px 80px;
-      background-position: 0 0, 0 0, 22px 40px, 22px 40px, 0 0;
-    }
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
 
-    .gold-streak {
-      position: absolute;
-      width: 55vw;
-      height: 7px;
-      background: linear-gradient(
+.background::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.22;
+    background-image:
+        linear-gradient(30deg,#111 12%,transparent 12.5%,transparent 87%,#111 87.5%,#111),
+        linear-gradient(150deg,#111 12%,transparent 12.5%,transparent 87%,#111 87.5%,#111),
+        linear-gradient(30deg,#111 12%,transparent 12.5%,transparent 87%,#111 87.5%,#111),
+        linear-gradient(150deg,#111 12%,transparent 12.5%,transparent 87%,#111 87.5%,#111),
+        linear-gradient(60deg,#151515 25%,transparent 25.5%,transparent 75%,#151515 75%);
+    background-size:45px 80px;
+    background-position:0 0,0 0,22px 40px,22px 40px,0 0;
+}
+
+.gold-light{
+    position:absolute;
+    width:65vw;
+    height:7px;
+    background:linear-gradient(
         90deg,
         transparent,
-        #8b5c00,
-        #ffd45a,
-        #fff0a0,
-        #8b5c00,
+        #714800,
+        #d89b12,
+        #fff1a1,
+        #d89b12,
+        #714800,
         transparent
-      );
-      transform: rotate(-32deg);
-      opacity: 0.65;
-      filter: blur(1px);
-    }
+    );
+    box-shadow:0 0 15px rgba(255,195,40,.45);
+    transform:rotate(-32deg);
+    opacity:.75;
+}
 
-    .streak1 {
-      top: 5%;
-      left: -18%;
-    }
+.light1{
+    top:5%;
+    left:-20%;
+}
 
-    .streak2 {
-      bottom: 9%;
-      right: -18%;
-      transform: rotate(-32deg);
-    }
+.light2{
+    bottom:10%;
+    right:-20%;
+}
 
-    .streak3 {
-      top: 42%;
-      right: -30%;
-      transform: rotate(-32deg);
-      opacity: 0.25;
-    }
+.light3{
+    top:48%;
+    right:-35%;
+    opacity:.3;
+}
 
-    /* CONTENEDOR PRINCIPAL */
-    .page {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 520px;
-      min-height: 100vh;
-      margin: auto;
-      padding: 28px 20px 35px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+.spark{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:#ffd84a;
+    border-radius:50%;
+    box-shadow:0 0 10px #ffd84a;
+    animation:floatSpark 4s linear infinite;
+}
 
-    /* LOGO */
-    .logo-area {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 5px;
-    }
+.s1{top:16%;left:12%;}
+.s2{top:28%;left:82%;animation-delay:1s;}
+.s3{top:58%;left:8%;animation-delay:2s;}
+.s4{top:72%;left:90%;animation-delay:3s;}
+.s5{top:85%;left:30%;animation-delay:1.5s;}
 
-    .logo-circle {
-      position: relative;
-      width: 190px;
-      height: 190px;
-      border-radius: 50%;
-      border: 5px solid #c99316;
-      background:
-        radial-gradient(circle, #222 0%, #0b0b0b 70%);
-      box-shadow:
-        0 0 15px rgba(255, 196, 50, 0.35),
-        inset 0 0 25px rgba(255, 190, 30, 0.15);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+@keyframes floatSpark{
+    0%{transform:translateY(0);opacity:.2;}
+    50%{opacity:1;}
+    100%{transform:translateY(-35px);opacity:0;}
+}
 
-    .logo-circle::before,
-    .logo-circle::after {
-      content: "";
-      position: absolute;
-      width: 46px;
-      height: 80px;
-      border: 4px solid #b47b0b;
-      top: 58px;
-    }
+/* =========================
+   PÁGINA
+========================= */
 
-    .logo-circle::before {
-      left: -40px;
-      transform: skewY(-20deg) rotate(-18deg);
-      border-right: 0;
-      border-radius: 20px 0 0 20px;
-    }
+.page{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:520px;
+    min-height:100vh;
+    margin:auto;
+    padding:22px 18px 35px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
 
-    .logo-circle::after {
-      right: -40px;
-      transform: skewY(20deg) rotate(18deg);
-      border-left: 0;
-      border-radius: 0 20px 20px 0;
-    }
+/* =========================
+   FREE FIRE ARRIBA DERECHA
+========================= */
 
-    .crown {
-      position: absolute;
-      top: -43px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 68px;
-      line-height: 1;
-      filter:
-        drop-shadow(0 0 4px #ffcf45)
-        drop-shadow(0 4px 2px #4b3100);
-    }
+.freefire{
+    position:absolute;
+    top:18px;
+    right:17px;
+    font-weight:1000;
+    font-style:italic;
+    font-size:clamp(17px,5vw,27px);
+    letter-spacing:-1px;
+    color:#fff;
+    text-shadow:
+        2px 2px 0 #222,
+        0 0 7px rgba(255,255,255,.3);
+    transform:skew(-8deg);
+    z-index:10;
+}
 
-    .ss {
-      font-size: 92px;
-      line-height: 1;
-      font-weight: 1000;
-      font-style: italic;
-      letter-spacing: -12px;
-      margin-right: 12px;
-      background: linear-gradient(
-        180deg,
-        #fff2a2 0%,
-        #ffc928 30%,
-        #b97600 65%,
-        #fff0a0 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow:
-        3px 3px 0 #382400,
-        0 0 8px rgba(255, 199, 45, 0.4);
-    }
+.freefire::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:-4px;
+    height:2px;
+    background:#d7a21c;
+    box-shadow:0 0 6px #d7a21c;
+}
 
-    .brand {
-      margin-top: 25px;
-      font-size: clamp(42px, 11vw, 64px);
-      font-weight: 1000;
-      letter-spacing: 2px;
-      line-height: 1;
-      text-align: center;
-      background: linear-gradient(
-        180deg,
-        #fff6c3,
-        #ffd23b 38%,
-        #a96800 72%,
-        #fff0a0
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow:
-        3px 3px 0 #241700,
-        0 0 10px rgba(255, 194, 30, 0.3);
-    }
+/* =========================
+   LOGO SS
+========================= */
 
-    .brand-line {
-      width: 250px;
-      height: 4px;
-      margin-top: 10px;
-      border-radius: 50%;
-      background: linear-gradient(
+.logo-area{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top:42px;
+}
+
+.logo-circle{
+    position:relative;
+    width:190px;
+    height:190px;
+    border-radius:50%;
+
+    background:
+        radial-gradient(circle at 50% 40%,#303030,#090909 70%);
+
+    border:5px solid #c88d0d;
+
+    box-shadow:
+        0 0 12px rgba(255,194,32,.45),
+        0 0 30px rgba(255,174,0,.16),
+        inset 0 0 25px rgba(255,190,20,.16);
+    
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.logo-circle::before{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border-radius:50%;
+    border:2px solid rgba(255,209,63,.3);
+}
+
+.logo-circle::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:2px;
+    background:linear-gradient(
         90deg,
         transparent,
-        #ffd33d,
-        #fff1a0,
-        #ffd33d,
+        #d49b17,
         transparent
-      );
-      box-shadow: 0 0 8px rgba(255, 205, 55, 0.5);
-    }
+    );
+    bottom:-25px;
+}
 
-    /* TITULO */
-    .follow-title {
-      margin-top: 48px;
-      text-align: center;
-    }
+.crown{
+    position:absolute;
+    top:-48px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:70px;
+    color:#e8b52a;
+    text-shadow:
+        2px 3px 0 #563900,
+        0 0 10px rgba(255,202,50,.6);
+}
 
-    .follow-title h1 {
-      font-size: clamp(40px, 11vw, 58px);
-      font-weight: 1000;
-      letter-spacing: 1px;
-      line-height: 1;
-      color: white;
-      text-shadow: 0 4px 8px #000;
-    }
+.ss{
+    font-size:94px;
+    font-weight:1000;
+    font-style:italic;
+    letter-spacing:-13px;
+    margin-right:12px;
 
-    .follow-title p {
-      margin-top: 12px;
-      font-size: clamp(19px, 5vw, 27px);
-      font-weight: 900;
-      letter-spacing: 1px;
-      color: #f6c72d;
-      text-shadow: 0 2px 4px #000;
-    }
+    background:linear-gradient(
+        180deg,
+        #fff3a5 0%,
+        #ffd331 28%,
+        #bd7900 60%,
+        #ffe57a 82%,
+        #9b6100 100%
+    );
 
-    /* FACEBOOK */
-    .facebook-button {
-      width: 100%;
-      max-width: 410px;
-      min-height: 125px;
-      margin-top: 42px;
-      padding: 18px 22px;
-      border-radius: 25px;
-      border: 3px solid #2587ff;
-      background: linear-gradient(
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+
+    filter:
+        drop-shadow(3px 3px 0 #392300)
+        drop-shadow(0 0 7px rgba(255,191,25,.45));
+}
+
+.brand{
+    margin-top:28px;
+    font-size:clamp(42px,11vw,64px);
+    font-weight:1000;
+    letter-spacing:2px;
+    line-height:1;
+
+    background:linear-gradient(
+        180deg,
+        #fff4a9,
+        #ffd238 35%,
+        #a96800 68%,
+        #ffe88b
+    );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+
+    text-shadow:
+        3px 3px 0 #291a00,
+        0 0 10px rgba(255,190,30,.35);
+}
+
+.brand-line{
+    width:260px;
+    height:4px;
+    margin-top:10px;
+    border-radius:50%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #d89c18,
+        #fff1a2,
+        #d89c18,
+        transparent
+    );
+    box-shadow:0 0 9px rgba(255,202,55,.55);
+}
+
+/* =========================
+   TEXTO
+========================= */
+
+.follow-title{
+    margin-top:43px;
+    text-align:center;
+}
+
+.follow-title h1{
+    font-size:clamp(40px,11vw,58px);
+    font-weight:1000;
+    line-height:1;
+    color:white;
+    text-shadow:
+        0 4px 8px #000,
+        0 0 10px rgba(255,255,255,.15);
+}
+
+.follow-title p{
+    margin-top:12px;
+    font-size:clamp(18px,5vw,26px);
+    font-weight:1000;
+    color:#e7b72b;
+    text-shadow:0 2px 4px #000;
+}
+
+/* =========================
+   FACEBOOK
+========================= */
+
+.facebook-button{
+    width:100%;
+    max-width:420px;
+    min-height:145px;
+    margin-top:38px;
+
+    padding:20px;
+
+    border:3px solid #c58b14;
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #202020,
+            #090909
+        );
+
+    box-shadow:
+        0 0 15px rgba(218,160,25,.3),
+        inset 0 0 15px rgba(255,197,35,.08);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+
+    color:white;
+    cursor:pointer;
+
+    transition:
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+.facebook-button:active{
+    transform:scale(.97);
+}
+
+.facebook-button:hover{
+    box-shadow:
+        0 0 25px rgba(255,195,35,.45),
+        inset 0 0 18px rgba(255,197,35,.12);
+}
+
+.facebook-icon{
+    width:70px;
+    height:70px;
+    flex-shrink:0;
+
+    border-radius:14px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(
         145deg,
-        #3b8cff,
-        #0757cf
-      );
-      box-shadow:
-        0 0 18px rgba(31, 126, 255, 0.6),
-        inset 0 0 12px rgba(255, 255, 255, 0.15);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      cursor: pointer;
-      transition: transform 0.15s ease, filter 0.15s ease;
-      user-select: none;
+        #ffd94c,
+        #9e6400
+    );
+
+    color:#111;
+
+    font-family:Arial,sans-serif;
+    font-size:59px;
+    font-weight:1000;
+
+    box-shadow:
+        0 0 10px rgba(255,198,40,.45),
+        inset 0 0 8px rgba(255,255,255,.25);
+}
+
+.facebook-text{
+    text-align:left;
+}
+
+.facebook-name{
+    display:block;
+    font-size:clamp(25px,6vw,34px);
+    font-weight:1000;
+    line-height:1;
+}
+
+.facebook-user{
+    display:block;
+    margin-top:7px;
+    font-size:clamp(20px,5vw,27px);
+    font-weight:700;
+    color:#e6b92d;
+}
+
+.follow-button{
+    display:inline-block;
+    margin-top:9px;
+    padding:7px 23px;
+
+    border-radius:8px;
+
+    background:linear-gradient(
+        180deg,
+        #ffd941,
+        #a86b00
+    );
+
+    border:1px solid #f5cf5a;
+
+    color:#111;
+
+    font-size:16px;
+    font-weight:1000;
+    letter-spacing:1px;
+
+    box-shadow:
+        0 0 8px rgba(255,196,30,.35);
+}
+
+/* =========================
+   CONTINUAR BLOQUEADO
+========================= */
+
+.continue-button{
+    width:100%;
+    max-width:420px;
+    min-height:105px;
+
+    margin-top:35px;
+
+    border-radius:22px;
+    border:3px solid #6a6a6a;
+
+    background:
+        linear-gradient(
+            145deg,
+            #464646,
+            #242424
+        );
+
+    color:#999;
+
+    font-size:clamp(28px,7vw,39px);
+    font-weight:1000;
+
+    letter-spacing:1px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+
+    cursor:not-allowed;
+
+    box-shadow:
+        inset 0 0 12px rgba(255,255,255,.04),
+        0 5px 15px rgba(0,0,0,.5);
+
+    transition:all .25s ease;
+}
+
+.lock{
+    font-size:34px;
+}
+
+/* =========================
+   CONTINUAR DESBLOQUEADO
+========================= */
+
+.continue-button.unlocked{
+    border-color:#e4ae21;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffe15a,
+            #c58200
+        );
+
+    color:#171717;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 20px rgba(255,198,42,.65),
+        inset 0 0 15px rgba(255,255,255,.25);
+
+    animation:pulse .9s infinite alternate;
+}
+
+.continue-button.unlocked .lock{
+    display:none;
+}
+
+@keyframes pulse{
+    from{
+        box-shadow:
+            0 0 14px rgba(255,198,42,.4);
     }
 
-    .facebook-button:active {
-      transform: scale(0.97);
-      filter: brightness(0.9);
+    to{
+        box-shadow:
+            0 0 30px rgba(255,198,42,.8);
+    }
+}
+
+/* =========================
+   PIE
+========================= */
+
+.footer{
+    margin-top:23px;
+    color:#555;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+/* =========================
+   MÓVILES PEQUEÑOS
+========================= */
+
+@media(max-width:380px){
+
+    .page{
+        padding-left:14px;
+        padding-right:14px;
     }
 
-    .facebook-icon {
-      width: 67px;
-      height: 67px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: white;
-      color: #1877f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 58px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      line-height: 1;
+    .logo-circle{
+        width:155px;
+        height:155px;
     }
 
-    .facebook-text {
-      text-align: left;
+    .ss{
+        font-size:76px;
     }
 
-    .facebook-name {
-      display: block;
-      font-size: clamp(24px, 6vw, 34px);
-      font-weight: 1000;
-      line-height: 1;
-      letter-spacing: 1px;
+    .crown{
+        font-size:55px;
+        top:-39px;
     }
 
-    .facebook-user {
-      display: block;
-      margin-top: 8px;
-      font-size: clamp(21px, 5vw, 27px);
-      font-weight: 700;
+    .brand{
+        font-size:42px;
     }
 
-    /* CONTINUAR */
-    .continue-button {
-      width: 100%;
-      max-width: 410px;
-      min-height: 105px;
-      margin-top: 48px;
-      border-radius: 24px;
-      border: 3px solid #4d4d4d;
-      background: linear-gradient(
-        145deg,
-        #444,
-        #292929
-      );
-      color: #999;
-      font-size: clamp(28px, 7vw, 39px);
-      font-weight: 1000;
-      letter-spacing: 1px;
-      box-shadow:
-        inset 0 0 12px rgba(255, 255, 255, 0.05),
-        0 5px 15px rgba(0, 0, 0, 0.5);
-      cursor: not-allowed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      transition: all 0.25s ease;
+    .facebook-button{
+        min-height:120px;
+        gap:12px;
     }
 
-    .lock {
-      font-size: 37px;
+    .facebook-icon{
+        width:57px;
+        height:57px;
+        font-size:48px;
     }
 
-    /* ESTADO DESBLOQUEADO */
-    .continue-button.unlocked {
-      border-color: #e8b62b;
-      background: linear-gradient(
-        145deg,
-        #ffd83e,
-        #c58200
-      );
-      color: #171717;
-      cursor: pointer;
-      box-shadow:
-        0 0 20px rgba(255, 197, 40, 0.55),
-        inset 0 0 12px rgba(255, 255, 255, 0.25);
-      animation: pulseButton 1.8s infinite;
+    .continue-button{
+        min-height:90px;
     }
 
-    .continue-button.unlocked .lock {
-      display: none;
+    .freefire{
+        font-size:17px;
     }
-
-    .continue-button:active {
-      transform: scale(0.97);
-    }
-
-    @keyframes pulseButton {
-      0%, 100% {
-        box-shadow: 0 0 15px rgba(255, 197, 40, 0.35);
-      }
-
-      50% {
-        box-shadow: 0 0 28px rgba(255, 197, 40, 0.75);
-      }
-    }
-
-    /* TEXTO INFERIOR */
-    .footer {
-      margin-top: 25px;
-      text-align: center;
-      font-size: 13px;
-      color: #555;
-      letter-spacing: 1px;
-    }
-
-    /* MÓVILES PEQUEÑOS */
-    @media (max-width: 380px) {
-      .page {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-
-      .logo-circle {
-        width: 155px;
-        height: 155px;
-      }
-
-      .ss {
-        font-size: 75px;
-      }
-
-      .crown {
-        font-size: 55px;
-        top: -37px;
-      }
-
-      .facebook-button {
-        min-height: 105px;
-        gap: 13px;
-      }
-
-      .facebook-icon {
-        width: 55px;
-        height: 55px;
-        font-size: 48px;
-      }
-
-      .continue-button {
-        min-height: 90px;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <div class="background">
-    <div class="gold-streak streak1"></div>
-    <div class="gold-streak streak2"></div>
-    <div class="gold-streak streak3"></div>
-  </div>
+<!-- =========================
+     FONDO
+========================= -->
 
-  <main class="page">
+<div class="background">
+    <div class="gold-light light1"></div>
+    <div class="gold-light light2"></div>
+    <div class="gold-light light3"></div>
 
-    <!-- LOGO -->
+    <div class="spark s1"></div>
+    <div class="spark s2"></div>
+    <div class="spark s3"></div>
+    <div class="spark s4"></div>
+    <div class="spark s5"></div>
+</div>
+
+
+<main class="page">
+
+    <!-- FREE FIRE ARRIBA DERECHA -->
+    <div class="freefire">FREE FIRE</div>
+
+
+    <!-- =========================
+         LOGO
+    ========================== -->
+
     <section class="logo-area">
 
-      <div class="logo-circle">
-        <div class="crown">♛</div>
-        <div class="ss">SS</div>
-      </div>
+        <div class="logo-circle">
 
-      <div class="brand">SOY SIGAS</div>
-      <div class="brand-line"></div>
+            <div class="crown">♛</div>
+
+            <div class="ss">SS</div>
+
+        </div>
+
+        <div class="brand">
+            SOY SIGAS
+        </div>
+
+        <div class="brand-line"></div>
 
     </section>
 
-    <!-- TITULO -->
+
+    <!-- =========================
+         TITULO
+    ========================== -->
+
     <section class="follow-title">
-      <h1>SÍGUEME</h1>
-      <p>EN MI RED PARA CONTINUAR</p>
+
+        <h1>SÍGUEME</h1>
+
+        <p>
+            EN MI RED PARA CONTINUAR
+        </p>
+
     </section>
 
-    <!-- FACEBOOK -->
+
+    <!-- =========================
+         FACEBOOK
+    ========================== -->
+
     <button
-      id="facebookButton"
-      class="facebook-button"
-      type="button"
-      onclick="abrirFacebook()"
+        id="facebookButton"
+        class="facebook-button"
+        type="button"
+        onclick="abrirFacebook()"
     >
 
-      <span class="facebook-icon">f</span>
+        <span class="facebook-icon">
+            f
+        </span>
 
-      <span class="facebook-text">
-        <span class="facebook-name">FACEBOOK</span>
-        <span class="facebook-user">Soy Sigas</span>
-      </span>
+        <span class="facebook-text">
+
+            <span class="facebook-name">
+                FACEBOOK
+            </span>
+
+            <span class="facebook-user">
+                Soy Sigas
+            </span>
+
+            <span class="follow-button">
+                SÍGUEME
+            </span>
+
+        </span>
 
     </button>
 
-    <!-- CONTINUAR -->
+
+    <!-- =========================
+         CONTINUAR
+    ========================== -->
+
     <button
-      id="continueButton"
-      class="continue-button"
-      type="button"
-      disabled
-      onclick="continuar()"
+        id="continueButton"
+        class="continue-button"
+        type="button"
+        disabled
+        onclick="continuar()"
     >
-      <span>CONTINUAR</span>
-      <span class="lock">🔒</span>
+
+        <span>
+            CONTINUAR
+        </span>
+
+        <span class="lock">
+            🔒
+        </span>
+
     </button>
+
 
     <div class="footer">
-      SOY SIGAS
+        SOY SIGAS
     </div>
 
-  </main>
+</main>
 
 
-  <script>
+<script>
+
+/* =========================================================
+   ENLACES
+========================================================= */
+
+const FACEBOOK_URL =
+"https://www.facebook.com/profile.php?id=61593805138979";
+
+const MEDIAFIRE_URL =
+"https://www.mediafire.com/file/8724i5ox56kjb1b/FLASH+V25_21.0.apk/file";
+
+
+/* =========================================================
+   TIEMPO REQUERIDO
+========================================================= */
+
+const TIEMPO_REQUERIDO = 25 * 1000;
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let facebookCompleted = false;
+
+
+/* =========================================================
+   ABRIR FACEBOOK
+========================================================= */
+
+function abrirFacebook(){
 
     /*
-      ==========================================================
-      CONFIGURACIÓN
-      ==========================================================
+       Guardamos el momento en que la persona
+       pulsa el botón de Facebook.
     */
 
-    const FACEBOOK_URL =
-      "https://www.facebook.com/profile.php?id=61593805138979";
+    const inicio = Date.now();
 
-    const MEDIAFIRE_URL =
-      "https://www.mediafire.com/file/8724i5ox56kjb1b/FLASH+V25_21.0.apk/file";
-
-    const TIEMPO_REQUERIDO = 25 * 1000;
-
-
-    /*
-      ==========================================================
-      ESTADO
-      ==========================================================
-    */
-
-    let facebookVisitStart = null;
-    let facebookCompleted = false;
-
-
-    /*
-      ==========================================================
-      ABRIR FACEBOOK
-      ==========================================================
-    */
-
-    function abrirFacebook() {
-
-      /*
-        Guardamos el momento exacto en que la persona
-        pulsa Facebook.
-      */
-
-      facebookVisitStart = Date.now();
-
-      /*
-        Guardamos el momento también para poder comprobarlo
-        cuando el usuario regrese al sitio.
-      */
-
-      sessionStorage.setItem(
+    sessionStorage.setItem(
         "facebookVisitStart",
-        facebookVisitStart.toString()
-      );
+        inicio.toString()
+    );
 
-      sessionStorage.setItem(
+    sessionStorage.setItem(
         "facebookCompleted",
         "false"
-      );
+    );
 
-      /*
-        Abrimos Facebook en una nueva pestaña.
-        Así el sitio queda disponible cuando el usuario
-        regrese.
-      */
+    facebookCompleted = false;
 
-      window.open(
+    /*
+       Abrimos Facebook.
+    */
+
+    window.open(
         FACEBOOK_URL,
         "_blank",
         "noopener,noreferrer"
-      );
+    );
 
-    }
+}
 
 
-    /*
-      ==========================================================
-      COMPROBAR LOS 25 SEGUNDOS
-      ==========================================================
-    */
+/* =========================================================
+   COMPROBAR LOS 25 SEGUNDOS
+========================================================= */
 
-    function comprobarFacebook() {
+function comprobarFacebook(){
 
-      const savedStart =
+    const inicioGuardado =
         sessionStorage.getItem("facebookVisitStart");
 
-      const completed =
+    const completado =
         sessionStorage.getItem("facebookCompleted");
 
-      if (!savedStart || completed === "true") {
+    if(!inicioGuardado){
         return;
-      }
+    }
 
-      const inicio = parseInt(savedStart, 10);
-
-      if (isNaN(inicio)) {
-        return;
-      }
-
-      const tiempoTranscurrido =
-        Date.now() - inicio;
-
-      /*
-        Si han pasado al menos 25 segundos,
-        desbloqueamos CONTINUAR.
-      */
-
-      if (tiempoTranscurrido >= TIEMPO_REQUERIDO) {
-
-        facebookCompleted = true;
-
-        sessionStorage.setItem(
-          "facebookCompleted",
-          "true"
-        );
+    if(completado === "true"){
 
         desbloquearContinuar();
 
-      }
-
+        return;
     }
+
+    const inicio =
+        parseInt(inicioGuardado,10);
+
+    if(isNaN(inicio)){
+        return;
+    }
+
+    const transcurrido =
+        Date.now() - inicio;
 
 
     /*
-      ==========================================================
-      DESBLOQUEAR CONTINUAR
-      ==========================================================
+       Si han pasado 25 segundos,
+       se completa el paso.
     */
 
-    function desbloquearContinuar() {
+    if(transcurrido >= TIEMPO_REQUERIDO){
 
-      const button =
+        sessionStorage.setItem(
+            "facebookCompleted",
+            "true"
+        );
+
+        facebookCompleted = true;
+
+        desbloquearContinuar();
+
+    }
+
+}
+
+
+/* =========================================================
+   DESBLOQUEAR BOTÓN
+========================================================= */
+
+function desbloquearContinuar(){
+
+    const button =
         document.getElementById("continueButton");
 
-      button.disabled = false;
+    button.disabled = false;
 
-      button.classList.add("unlocked");
+    button.classList.add("unlocked");
 
-    }
+}
 
+
+/* =========================================================
+   CONTINUAR
+========================================================= */
+
+function continuar(){
 
     /*
-      ==========================================================
-      CONTINUAR
-      ==========================================================
+       No permite continuar si Facebook
+       todavía no está completado.
     */
 
-    function continuar() {
+    if(!facebookCompleted){
 
-      if (!facebookCompleted) {
         return;
-      }
-
-      /*
-        Abrimos directamente MediaFire.
-      */
-
-      window.location.href = MEDIAFIRE_URL;
 
     }
 
 
     /*
-      ==========================================================
-      CUANDO EL USUARIO REGRESA AL SITIO
-      ==========================================================
+       Abre el APK de MediaFire.
     */
 
-    document.addEventListener(
-      "visibilitychange",
-      function() {
+    window.location.href = MEDIAFIRE_URL;
 
-        if (
-          document.visibilityState === "visible"
-        ) {
+}
 
-          comprobarFacebook();
+
+/* =========================================================
+   CUANDO REGRESA AL SITIO
+========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState === "visible"
+        ){
+
+            comprobarFacebook();
 
         }
 
-      }
-    );
+    }
+);
 
 
-    window.addEventListener(
-      "pageshow",
-      function() {
+/* =========================================================
+   CUANDO SE RESTAURA LA PÁGINA
+========================================================= */
+
+window.addEventListener(
+    "pageshow",
+    function(){
 
         comprobarFacebook();
 
-      }
-    );
+    }
+);
 
 
-    /*
-      También comprobamos periódicamente,
-      pero SIN MOSTRAR ningún contador.
-    */
+/* =========================================================
+   COMPROBACIÓN INTERNA
+   NO SE MUESTRA NADA EN PANTALLA.
+========================================================= */
 
-    setInterval(
-      comprobarFacebook,
-      1000
-    );
+setInterval(
+    comprobarFacebook,
+    1000
+);
 
 
-    /*
-      Comprobación inicial.
-    */
+/* =========================================================
+   COMPROBACIÓN INICIAL
+========================================================= */
 
-    comprobarFacebook();
+comprobarFacebook();
 
-  </script>
+</script>
 
 </body>
-    </html>
+  </html>
